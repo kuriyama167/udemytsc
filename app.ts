@@ -1,52 +1,33 @@
-function add(n1: number, n2:number, showResult: boolean , phrase: string){
 
-    if(showResult){
-        console.log(phrase + n1+n2);
-    }else{ 
-        return n1 + n2;
+type Combinable = number | string; //aliases agregar alias y hacer union 
+type ConversionDescriptor = 'as-number' | 'as-text';
+function combine(
+    input1: Combinable, 
+    input2:Combinable,
+    resultConvertion: ConversionDescriptor
+    ) {
+    let result;
+    if( typeof input1 === 'number' && typeof input2 === 'number' || resultConvertion === 'as-number' ){
+        result = +input1 + +input2; 
+    }else {
+        result = input1.toString() + input2.toString(); 
     }
-   
-
-}
-let number1 : number;
-number1 = 5 ;
-const number2 = 5.8 ;
-const printResult = true;
-const resultPhrase = 'Result is : ';
-
-
-
- add(number1, number2, printResult, resultPhrase);
-
- //const person: {
-   // name: string;
-    //age: number;
- //} = {
-  //name: 'Maximilain',
-  //age: 30
- //};
- //console.log(person.name)
-
-
- const person : {
-    name:string;
-    age:number;
-    hobbies:string[];
-    role:[number, string];
- } = {
-  name: 'Maximilain',
-  age: 30,
-  hobbies: [ 'Sports', 'Cooking'] ,
-  role: [2, 'author']
- };
-
- person.role.push('admin');
- //person.role[1]=10;
-
- let favoriteActitivities: string[];
- favoriteActitivities = ['sports'];
- console.log(person.name);
+    return result;
+    // if(resultConvertion === 'as-number'){
+    //     return +result;
+    // }else {
+    //     return result.toString;
+    // }
+     
   
- for (const hobby of person.hobbies){
-    console.log(hobby.toLocaleUpperCase());
-  }
+}
+
+const combinedAges = combine(30, 26, 'as-number');
+console.log(combinedAges);
+
+const combinedStringAges = combine('30', '26', 'as-number');
+console.log(combinedStringAges);
+
+const combinedNames = combine('Max', 'Anna', 'as-text');
+console.log(combinedNames);
+
